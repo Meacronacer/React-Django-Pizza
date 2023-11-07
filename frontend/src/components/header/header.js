@@ -1,11 +1,12 @@
+import React from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import { BsCart3 } from 'react-icons/bs'
 import { useSelector } from "react-redux";
 
 const Header = () => {
 
-    const orderTotalcost = useSelector(state => state.orderTotalcost)
-    const pizzaCounter = useSelector(state => state.pizzaCounter)
+    const orderTotalcost = useSelector(state => state.cart.orderTotalcost)
+    const pizzaCounter = useSelector(state => state.cart.pizzaCounter)
     const navigate = useNavigate()
 
     return (
@@ -20,7 +21,7 @@ const Header = () => {
           </div>
           <div className="header__cart">
             <Link to='/cart' className="button button--cart">
-              <span>{orderTotalcost.toFixed(2)} $</span>
+              <span>{orderTotalcost?.toFixed(2)} $</span>
               <div className="button__delimiter"></div>
               <BsCart3 size={24}/>
               <span>{pizzaCounter}</span>

@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { useDispatch } from "react-redux";
-import { addPizzaToCart } from "../store/actions/actions";
+import { addPizzaToCart } from "../cart/cartSlice";
 
-const PizzaItem = ({id, name, imageUrl, prices, sizes}) => {
+const PizzaItem = ({id, name, imageUrl, prices, sizes, dispatch}) => {
 
-  const dispatch = useDispatch()
   const [pizzaType, setPizzaType] = useState('thin')
   const [pizzaSize, setPizzaSize] = useState(0)
 

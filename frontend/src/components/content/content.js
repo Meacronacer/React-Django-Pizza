@@ -9,10 +9,10 @@ import axios from 'axios'
 
 const Content = () => {
     const dispatch = useDispatch();
-    const filter = useSelector(state => state.filter)
-    const sort = useSelector(state => state.sort)
-    const pizzas = useSelector(state => state.pizzasData)
-    const pizzasLoading = useSelector(state => state.pizzasLoading)
+    const filter = useSelector(state => state.reducer.filter)
+    const sort = useSelector(state => state.reducer.sort)
+    const pizzas = useSelector(state => state.reducer.pizzasData)
+    const pizzasLoading = useSelector(state => state.reducer.pizzasLoading)
 
     useEffect(() => {
         dispatch(pizzaDataLoading('loading'))
@@ -28,24 +28,25 @@ const Content = () => {
         if (filter === 'All') {
             return data
         }
-        
+
         return data.filter(item => item.category === filter)
     }
 
     const pizzaSortBy = (data) => {
         switch(sort) {
             case 'popularity':
-                return data.sort((a,b) => b.rating - a.rating)
+                return [...data].sort((a,b) => b.rating - a.rating)
             case 'alphabet':
-                    return data.sort((a, b) => a.name[0] > b.name[0] ? 1 : -1)
+                    return [...data].sort((a, b) => a.name[0] > b.name[0] ? 1 : -1)
             case 'price':
-                return data.sort((a,b) => b.prices[0] - a.prices[0])
+                return [...data].sort((a,b) => b.prices[0] - a.prices[0])
             default :
                 return data
         }
     }
 
-    const filteredPizzas = pizzaSortBy(pizzaFilter(pizzas, filter)).map(item => <PizzaItem key={item.id} {...item} />)
+    const filteredPizzas = pizzaSortBy(pizzaFilter(pizzas, filter))
+                                .map(item => <PizzaItem dispatch={dispatch} key={item.id} {...item} />)
 
     return (
         <div className="content">
@@ -55,7 +56,7 @@ const Content = () => {
                     <SortPopup/>
                 </div>
                 <h2 className="content__title">{filter} Pizzas</h2>
-                <div className="content__items">
+                <div className="content__items">        
                     {pizzasLoading === 'idle' ? filteredPizzas: <div style={{margin:'auto'}}><MoonLoader size={200}  color="#36d7b7" /></div>}
                 </div>
             </div>

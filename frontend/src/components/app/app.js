@@ -7,14 +7,14 @@ import { useSelector } from "react-redux";
 
 const App = () => {
 
-    const cart = useSelector(state => state.cart).length
+    const cart = useSelector(state => state.cart.cartData)
 
     return (
         <div className="wrapper">
         <Header/>
         <Routes>
             <Route path="/" element={<Content/>} />
-            <Route path="/cart" element={cart > 0 ? <Cart/> : <CartEmpty/>} />
+            <Route path="/cart" element={cart?.length > 0 ? <Cart/> : <CartEmpty/>} />
         </Routes>
         </div>
     )

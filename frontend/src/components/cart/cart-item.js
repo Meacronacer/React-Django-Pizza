@@ -1,22 +1,19 @@
 import { AiOutlineClose } from 'react-icons/ai'
 import { BiMinus, BiPlus } from 'react-icons/bi'
-import { pizzaIncrementInCart, pizzaDecrementInCart, removePizzaFromCart } from '../store/actions/actions';
-import { useDispatch } from 'react-redux';
+import { incrementPizzaInCart, decrementPizzaInCart, removePizzaFromCart } from './cartSlice';
 
-const CartItem = ({pizzaIndex, name, imageUrl, pizzaType, price, size, count}) => {
-
-    const dispatch = useDispatch()
+const CartItem = ({pizzaIndex, name, imageUrl, pizzaType, price, size, count, dispatch}) => {
 
     const pizzaCounterMutation = (type) => {
         if (type === '+') {
-            dispatch(pizzaIncrementInCart(pizzaIndex))
+            dispatch(incrementPizzaInCart(pizzaIndex))
         } else {
-            dispatch(pizzaDecrementInCart(pizzaIndex))
+            dispatch(decrementPizzaInCart(pizzaIndex))
         }
     }
 
     const onPizzaRemoveFromCart = (index, price, count) => {
-        dispatch(removePizzaFromCart(index, price, count))
+        dispatch(removePizzaFromCart({index, price, count}))
     } 
 
     return (

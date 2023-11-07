@@ -5,19 +5,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { FiShoppingCart } from 'react-icons/fi'
 import { BsChevronLeft } from 'react-icons/bs'
 import { BiTrash } from 'react-icons/bi'
-import { cleanCart } from "../store/actions/actions";
+import { cleanCart } from "./cartSlice";
 
 const Cart = () => {
 
-    const cart = useSelector(state => state.cart)
-    const orderTotalcost = useSelector(state => state.orderTotalcost)
-    const pizzaCounter = useSelector(state => state.pizzaCounter)
+    const cart = useSelector(state => state.cart.cartData)
+    const orderTotalcost = useSelector(state => state.cart.orderTotalcost)
+    const pizzaCounter = useSelector(state => state.cart.pizzaCounter)
     const dispatch = useDispatch()
 
 
     const pizzasFromCart = cart.map((item, index) => {
-      console.log(item)
-      return <CartItem key={index} pizzaIndex={index} {...item} />
+      return <CartItem key={index} dispatch={dispatch} pizzaIndex={index} {...item} />
     })
 
   return (
@@ -42,7 +41,7 @@ const Cart = () => {
               Count of pizzas: <b>{pizzaCounter}</b>
               </span>
               <span>
-                Total cost: <b>{orderTotalcost.toFixed(2)} $</b>
+                Total cost: <b>{orderTotalcost?.toFixed(2)} $</b>
               </span>
             </div>
             <div className="cart__bottom-buttons">

@@ -4,7 +4,7 @@ import { AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai'
 import { useState, useEffect, useRef } from "react"
 
 export const Pizzafilters = () => {
-    const filter = useSelector(state => state.filter)
+    const filter = useSelector(state => state.reducer.filter)
     const dispatch = useDispatch()
 
     const onFilterChange = (filter) => {
@@ -29,7 +29,7 @@ export const Pizzafilters = () => {
 export const SortPopup = () => {
 
     const dispatch = useDispatch()
-    const sort = useSelector(state => state.sort)
+    const sort = useSelector(state => state.reducer.sort)
     const [sortPopupVisible, setSortPopupVisible] = useState(false)
     const sortRef = useRef(null)
 
