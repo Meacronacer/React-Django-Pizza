@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { addPizzaToCart } from "../cart/cartSlice";
+import { addPizzaToCart } from "../../Redux/Slices/cartSlice";
 
 const PizzaItem = ({id, name, imageUrl, prices, sizes, dispatch}) => {
 

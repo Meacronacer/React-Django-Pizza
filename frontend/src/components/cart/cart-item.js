@@ -1,6 +1,6 @@
 import { AiOutlineClose } from 'react-icons/ai'
 import { BiMinus, BiPlus } from 'react-icons/bi'
-import { incrementPizzaInCart, decrementPizzaInCart, removePizzaFromCart } from './cartSlice';
+import { incrementPizzaInCart, decrementPizzaInCart, removePizzaFromCart } from '../../Redux/Slices/cartSlice';
 
 const CartItem = ({pizzaIndex, name, imageUrl, pizzaType, price, size, count, dispatch}) => {
 
@@ -30,14 +30,20 @@ const CartItem = ({pizzaIndex, name, imageUrl, pizzaType, price, size, count, di
             <p>{pizzaType} dough, {size} size</p>
         </div>
         <div className="cart__item-count">
-            <div onClick={pizzaCounterMutation} className="button button--outline button--circle">
-            <BiMinus />
-            </div>
+            <button 
+                disabled={count === 1}
+                onClick={pizzaCounterMutation}
+                className="button button--outline button--circle">
+                <BiMinus size={18}/>
+            </button>
+            
             <b>{count}</b>
-            <div onClick={() => pizzaCounterMutation('+')} 
-            className="button button--outline button--circle cart__item-count-plus">
-            <BiPlus />
-            </div>
+
+            <button onClick={() => pizzaCounterMutation('+')} 
+                type='button'
+                className="button button--outline button--circle cart__item-count-plus">
+                <BiPlus size={18} />
+            </button>
         </div>
         <div className="cart__item-price">
             <b>{(price * count).toFixed(2)} $</b>

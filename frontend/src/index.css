@@ -32,3 +32,215 @@ body {
 .react-pizza-title {
   cursor: pointer;
 }
+
+.cart__item-count button:disabled  {
+  opacity: 0.4;
+  border-color: #787878;
+  transform: none;
+}
+
+.cart__item-count button:disabled:hover {
+  background-color: transparent;
+}
+
+.cart__item-count button:disabled svg path {
+  fill: #787878;
+}
+
+
+.page-not-found {
+  padding: 100px;
+  max-width: 750px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+
+.description {
+  margin-top: 10px;
+  font-size: 25px;
+}
+
+.pagination {
+  display: flex;
+  position: absolute;
+  width: 400px;
+  bottom: -10px;
+}
+
+.pagination li {
+  padding-left: 10px;
+}
+
+.selected a {
+  color: white;;
+  background-color: #fe5f1e;
+  cursor:default;
+}
+
+li a {
+  text-align: center;
+  font-size: 18px;
+  padding: 15px 20px 15px 20px;
+  border-radius: 50%;
+}
+
+
+li a:not(.selected a):not(.disabled a):hover {
+  background-color:#dfdfdf;
+  cursor: pointer;
+}
+
+
+/* search bar start */
+
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: row-reverse;
+}
+button {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #fe5f1e;
+  border-left: none;
+  padding: 5px;
+  border-radius: 0 5px 5px 0;
+  outline: none;
+  color: #9DBFAF;
+}
+
+.searchTerm:focus{
+  color: #fe5f1e;
+}
+
+.searchButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid #fe5f1e;
+  background: #fe5f1e;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 -5px -5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/*Resize the wrap to see the search bar change!*/
+.wrap{
+  width: 30%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Order start */
+
+
+.form-style-1 {
+	margin:10px 100px 20px 400px;
+	max-width: 400px;
+  min-width: 400px;
+	padding: 20px 12px 10px 20px;
+	font: 13px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.form-style-1 li {
+	padding: 0;
+	display: block;
+	list-style: none;
+	margin: 10px 0 0 0;
+}
+.form-style-1 label{
+	margin:0 0 3px 0;
+	padding:0px;
+	display:block;
+	font-weight: bold;
+}
+.form-style-1 input[type=text], 
+.form-style-1 input[type=date],
+.form-style-1 input[type=datetime],
+.form-style-1 input[type=number],
+.form-style-1 input[type=search],
+.form-style-1 input[type=time],
+.form-style-1 input[type=url],
+.form-style-1 input[type=email],
+textarea, 
+select{
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	border:1px solid #BEBEBE;
+	padding: 7px;
+	margin:0px;
+	-webkit-transition: all 0.30s ease-in-out;
+	-moz-transition: all 0.30s ease-in-out;
+	-ms-transition: all 0.30s ease-in-out;
+	-o-transition: all 0.30s ease-in-out;
+	outline: none;	
+}
+.form-style-1 input[type=text]:focus, 
+.form-style-1 input[type=date]:focus,
+.form-style-1 input[type=datetime]:focus,
+.form-style-1 input[type=number]:focus,
+.form-style-1 input[type=search]:focus,
+.form-style-1 input[type=time]:focus,
+.form-style-1 input[type=url]:focus,
+.form-style-1 input[type=email]:focus,
+.form-style-1 textarea:focus, 
+.form-style-1 select:focus{
+	-moz-box-shadow: 0 0 8px #88D5E9;
+	-webkit-box-shadow: 0 0 8px #88D5E9;
+	box-shadow: 0 0 8px #88D5E9;
+	border: 1px solid #88D5E9;
+}
+.form-style-1 .field-divided{
+	width: 49%;
+}
+
+.form-style-1 .field-long{
+	width: 100%;
+}
+.form-style-1 .field-select{
+	width: 100%;
+}
+.form-style-1 .field-textarea{
+	height: 100px;
+}
+.form-style-1 input[type=submit], .form-style-1 input[type=button]{
+	background: #4B99AD;
+	padding: 8px 15px 8px 15px;
+	border: none;
+	color: #fff;
+}
+.form-style-1 input[type=submit]:hover, .form-style-1 input[type=button]:hover{
+	background: #4691A4;
+	box-shadow:none;
+	-moz-box-shadow:none;
+	-webkit-box-shadow:none;
+}
+.form-style-1 .required{
+	color:red;
+}
+
+/* order item info */
+
+.order-items {
+  margin-top: 50px;
+  padding: 5px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  height: fit-content;
+}
+
+.order-item-info {
+  margin: 10px;
+}

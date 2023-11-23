@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 
 const CartEmpty = () => {
@@ -11,9 +12,9 @@ const CartEmpty = () => {
                 To order pizza, go to the main page.
                 </p>
                 <img src="/img/empty-cart.png" alt="Empty cart" />
-                <a href="/" className="button button--black">
+                <Link to='/' className="button button--black">
                 <span>Go back</span>
-                </a>
+                </Link>
             </div>
             </div>
       </div>

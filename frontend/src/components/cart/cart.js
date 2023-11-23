@@ -5,19 +5,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { FiShoppingCart } from 'react-icons/fi'
 import { BsChevronLeft } from 'react-icons/bs'
 import { BiTrash } from 'react-icons/bi'
-import { cleanCart } from "./cartSlice";
+import { cleanCart } from "../../Redux/Slices/cartSlice";
 
 const Cart = () => {
 
-    const cart = useSelector(state => state.cart.cartData)
-    const orderTotalcost = useSelector(state => state.cart.orderTotalcost)
-    const pizzaCounter = useSelector(state => state.cart.pizzaCounter)
-    const dispatch = useDispatch()
+  const cart = useSelector(state => state.cart.cartData)
+  const orderTotalcost = useSelector(state => state.cart.orderTotalcost)
+  const pizzaCounter = useSelector(state => state.cart.pizzaCounter)
+  const dispatch = useDispatch()
 
 
-    const pizzasFromCart = cart.map((item, index) => {
-      return <CartItem key={index} dispatch={dispatch} pizzaIndex={index} {...item} />
-    })
+  const pizzasFromCart = cart.map((item, index) => {
+    return <CartItem key={index} dispatch={dispatch} pizzaIndex={index} {...item} />
+  })
+
+
+  const clearCart = () => {
+    if (window.confirm('are you sure you want to clear cart?')) {
+      dispatch(cleanCart())
+    }
+  }
+
 
   return (
     <div className="content">
@@ -29,7 +37,7 @@ const Cart = () => {
               Cart
             </h2>
             <div className="cart_clean">
-              <span onClick={() => dispatch(cleanCart())}><BiTrash/> Clear cart</span>
+              <span onClick={clearCart}><BiTrash/> Clear cart</span>
             </div>
           </div>
           <div className="content__items">
@@ -53,9 +61,9 @@ const Cart = () => {
 
                 <span>Go back</span>
               </Link>
-              <div className="button pay-btn">
+              <Link to='/order' className="button pay-btn">
                 <span>Pay now</span>
-              </div>
+              </Link>
             </div>
           </div>
         </div>

@@ -1,11 +1,6 @@
 from django.db import models
 
 
-PIZZA_SIZE = (
-    ('26', '26'),
-    ('30', '30'),
-    ('40', '40')
-)
 
 PIZZA_TYPES = (
     ('thin', 'thin'),
@@ -13,27 +8,26 @@ PIZZA_TYPES = (
 )
 
 PIZZA_RATING = (
-    ('1', '1'),
-    ('2', '2'),
-    ('3', '3'),
-    ('4', '4'),
-    ('5', '5'),
-    ('6', '6'),
-    ('7', '7'),
-    ('8', '8'),
-    ('9', '9'),
-    ('10', '10')
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+    (6, 6),
+    (7, 7),
+    (8, 8),
+    (9, 9)
 )
 
 
 class Categorie(models.Model):
-    name = models.CharField(max_length=60)
+    name = models.CharField(max_length=60, default=[0])
 
     def __str__(self) -> str:
         return self.name
 
 class PizzaPrice(models.Model):
-    price = models.FloatField(default=4.55)
+    price = models.DecimalField(max_digits=8, decimal_places=2)
 
     def __str__(self) -> str:
         return str(self.price)
@@ -44,26 +38,33 @@ class PizzaPrice(models.Model):
 class PizzaSize(models.Model):
     size = models.IntegerField()
 
+    class Meta:
+        ordering = ['size']
+
     def __str__(self) -> str:
-        return self.size
+        return str(self.size)
 
 class Pizza(models.Model):
     name = models.CharField(max_length=60)
     imageUrl = models.CharField(max_length=150)
-    category = models.ForeignKey(Categorie, on_delete=models.CASCADE)
-    rating = models.CharField(max_length=2, choices=PIZZA_RATING, default=1)
-    sizes = models.ManyToManyField(PizzaSize, blank=True, default=26)
-    prices = models.ManyToManyField(PizzaPrice, blank=True, default=5)
+    category = models.ForeignKey(Categorie, default=1, on_delete=models.CASCADE)
+    rating = models.IntegerField(choices=PIZZA_RATING, default=1)
+    sizes = models.ManyToManyField(PizzaSize, blank=True, default=[0])
+    prices = models.ManyToManyField(PizzaPrice, blank=True, default=[0])
+
 
     def __str__(self) -> str:
         return self.name
 
 class PizzaOrder(models.Model):
-    pizza = models.ForeignKey(Pizza, on_delete=models.PROTECT)
-    type = models.CharField(max_length=20, choices=PIZZA_TYPES)
-    size = models.CharField(max_length=2, choices=PIZZA_SIZE)
+    name = models.CharField(max_length=90, blank=True)
+    pizzas = models.JSONField(default=dict)
+    phone_number = models.CharField(max_length=15, blank=True)
+    total = models.FloatField(blank=True, default=0)
+    address = models.TextField(max_length=200, blank=True)
     paid_status = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
-        return self.id
+        return str(self.name)
+    

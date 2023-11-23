@@ -1,35 +1,14 @@
 import { useDispatch, useSelector } from "react-redux"
-import { filterChange, sortPopupChange } from "../store/actions/actions"
+import { sortPopupChange } from '../../Redux/Slices/filterSortSlice'
 import { AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai'
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, memo } from "react"
 
-export const Pizzafilters = () => {
-    const filter = useSelector(state => state.reducer.filter)
-    const dispatch = useDispatch()
+const sortPopUp = ['-popularity', 'popularity', '-price', 'price', '-alphabet', 'alphabet']
 
-    const onFilterChange = (filter) => {
-        dispatch(filterChange(filter))
-    }
-
-    const pizzaFiltered = [ 'All','Meat','Vegetarian', 'Grill','Spicy','Closed']
-                            .map((item, index) => {
-                            return <li key={index}
-                                        onClick={() => onFilterChange(item)}
-                                        className={filter === item ? 'active' : ''}>{item}</li>
-                            })
-
-    return (<div className="categories">
-                <ul>
-                {pizzaFiltered}
-                </ul>
-            </div>)
-}
-
-
-export const SortPopup = () => {
+const SortPopup = memo(() => {
 
     const dispatch = useDispatch()
-    const sort = useSelector(state => state.reducer.sort)
+    const sort = useSelector(state => state.filterSort.sort)
     const [sortPopupVisible, setSortPopupVisible] = useState(false)
     const sortRef = useRef(null)
 
@@ -42,16 +21,18 @@ export const SortPopup = () => {
         document.addEventListener('click', handleClickOutside, true);
         return () => document.removeEventListener('click', handleClickOutside, true);
       }, [])
-
+    
+    
     const onSortPopupChange = (sortBy) => {
         dispatch(sortPopupChange(sortBy))
         setSortPopupVisible(false)
     }
 
-    const sort__popup = ['popularity', 'price', 'alphabet'].map((item, index) => {
+    const sort__popup = sortPopUp.map((item, index) => {
         return <li key={index}
                    onClick={() => onSortPopupChange(item)}
-                   className={sort === item ? 'active': ''} >{item}</li>
+                   className={sort === item ? 'active': ''} >{
+                    item[0] === '-' ? `${item.substring(1)}(DESC)` : `${item} (ASC)`}</li>
     })
 
     return (
@@ -59,7 +40,9 @@ export const SortPopup = () => {
             <div className="sort__label">
                 {sortPopupVisible ? <AiFillCaretDown/> : <AiFillCaretUp/>}
                 <b>Sort by:</b>
-                <span onClick={() => setSortPopupVisible(!sortPopupVisible)}>{sort}</span>
+                <span onClick={() => setSortPopupVisible(!sortPopupVisible)}>{
+                    sort[0] === '-' ? `${sort.substring(1)} (DESC)` : `${sort} (ASC)`
+                }</span>
             </div>
                 {sortPopupVisible ? 
                     <div className="sort__popup">
@@ -70,4 +53,6 @@ export const SortPopup = () => {
                 }
         </div>
     )
-}
+})
+
+export default SortPopup;

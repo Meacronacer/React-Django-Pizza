@@ -8,9 +8,10 @@ import { persistStore,
          PERSIST,
          PURGE,
          REGISTER, } from 'redux-persist'
+import { pizzaApi } from '../api/pizzas'
 import storage from 'redux-persist/lib/storage'
-import reducer from './reducer/reducer'
-import cartSlice from '../cart/cartSlice'
+import cartSlice from '../Slices/cartSlice'
+import filterSortSlice from '../Slices/filterSortSlice'
 
 
 const persistConfig = {
@@ -28,8 +29,9 @@ const persistConfig = {
 }
 
 const reducers = combineReducers({
-    reducer: reducer,
-    cart: cartSlice
+    cart: cartSlice,
+    filterSort: filterSortSlice,
+    [pizzaApi.reducerPath]: pizzaApi.reducer
 })
 
 const persistedReducer = persistReducer(persistConfig, reducers)
@@ -41,7 +43,7 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(pizzaApi.middleware),
     devTools: process.env.NODE_ENV !== 'production',
 })
 

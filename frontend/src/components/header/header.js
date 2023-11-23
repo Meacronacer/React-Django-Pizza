@@ -1,13 +1,12 @@
-import React from 'react'
-import { Link, useNavigate } from "react-router-dom";
-import { BsCart3 } from 'react-icons/bs'
-import { useSelector } from "react-redux";
+import React, {memo} from 'react'
+import Search from '../search/search';
+import { useLocation, useNavigate } from "react-router-dom";
+import CartBtn from '../cart/cart-button';
 
-const Header = () => {
+const Header = memo(() => {
 
-    const orderTotalcost = useSelector(state => state.cart.orderTotalcost)
-    const pizzaCounter = useSelector(state => state.cart.pizzaCounter)
     const navigate = useNavigate()
+    const { pathname } = useLocation()
 
     return (
         <div className="header">
@@ -19,17 +18,11 @@ const Header = () => {
               <p>the most delicious pizza in the universe</p>
             </div>
           </div>
-          <div className="header__cart">
-            <Link to='/cart' className="button button--cart">
-              <span>{orderTotalcost?.toFixed(2)} $</span>
-              <div className="button__delimiter"></div>
-              <BsCart3 size={24}/>
-              <span>{pizzaCounter}</span>
-            </Link>
-          </div>
+          {['/cart', '/order'].includes(pathname) ? null : <Search/>}
+          <CartBtn/>
         </div>
       </div>
     )
-}
+})
 
 export default Header;
