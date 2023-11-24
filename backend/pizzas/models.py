@@ -61,7 +61,8 @@ class PizzaOrder(models.Model):
     pizzas = models.JSONField(default=dict)
     phone_number = models.CharField(max_length=15, blank=True)
     total = models.FloatField(blank=True, default=0)
-    address = models.TextField(max_length=200, blank=True)
+    order_type = models.CharField(max_length=25, blank=True)
+    address = models.TextField(max_length=200, blank=True, null=True)
     paid_status = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
 

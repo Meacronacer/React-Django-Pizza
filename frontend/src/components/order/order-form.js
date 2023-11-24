@@ -26,6 +26,7 @@ const OrderForm = ({cartData, orderTotalcost}) => {
                 const {count, name, size, pizzaType, price} = item
                 return `${count} x ${name} size ${size} ${pizzaType} | ${(price * count).toFixed(2)} $`
             }),
+            order_type: orderType,
             name: userName,
             phone_number: phone,
             total: parseFloat(orderTotalcost.toFixed(2)),
@@ -37,7 +38,7 @@ const OrderForm = ({cartData, orderTotalcost}) => {
             dispatch(cleanCart())
             navigate('/')
         }).catch(() => alert('Sorry, failed to create an order'))
-        console.log(order)
+
     }
 
     return (

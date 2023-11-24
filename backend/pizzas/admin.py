@@ -13,7 +13,6 @@ admin.site.register(PizzaPrice)
 @admin.register(PizzaOrder)
 class PizzaOrderAdmin(admin.ModelAdmin):
     readonly_fields = ['total']
-    list_display = ['total']
     formfield_overrides = {
         # fields.JSONField: {'widget': JSONEditorWidget}, # if django < 3.1
         models.JSONField: {'widget': JSONEditorWidget},

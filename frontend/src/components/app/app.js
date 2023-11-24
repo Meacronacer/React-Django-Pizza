@@ -4,7 +4,7 @@ import Cart from '../cart/cart'
 import Order from "../order/order";
 import CartEmpty from "../cart/cart-empty";
 import PizzaInfo from "../pizza-info/pizza-info";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const App = () => {
@@ -17,7 +17,7 @@ const App = () => {
         <Routes>
             <Route path="/" element={<Content/>} />
             <Route path="/cart" element={cart?.length > 0 ? <Cart/> : <CartEmpty/>} />
-            <Route path="/order" element={<Order/>} />
+            <Route path="/order" element={cart?.length > 0 ? <Order/> : <Navigate to='/'/>} />
             <Route path="*" element={
                 <PizzaInfo 
                 title='Nothing found'
